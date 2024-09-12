@@ -20,7 +20,7 @@ async function subsetFontFile(filePath) {
     const fontBuffer = fs.readFileSync(filePath);
     // Extract characters from filename for subsetting
     const filename = path.basename(filePath, '.ttf');
-    const subsetCharacters = filename.replace(/[^A-Za-z]/g, ''); // Remove non-alphabet characters
+    const subsetCharacters = filename.replace(/[^A-Za-z0-9]/g, ''); // Remove non-alphanumeric characters
     const subsetBuffer = await subsetFont(fontBuffer, subsetCharacters, { targetFormat: 'truetype' });
     const relativePath = path.relative(fontsDir, filePath);
     const outputFilePath = path.join(outputDir, path.dirname(relativePath), filename + '-Preview.ttf');
